@@ -1,53 +1,27 @@
-import { AppDataSource } from "../data-source"
-import { NextFunction, Request, Response } from "express"
-import { User } from "../entity/User"
+import { AppDataSource } from "../data-source";
+import { NextFunction, Request, Response } from "express";
+import { Dicas } from "../entity/Dicas";
 
-export class UserController {
+const repositoryDicas = AppDataSource.getRepository(Dicas);
 
-    private userRepository = AppDataSource.getRepository(User)
+export const createDicas = async (req: Request, res: Response) => {
+  try {
+    const dicasData = req.body;
 
-    async all(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.find()
-    }
+    const savedDicas = await repositoryDicas.save(dicasData);
 
-    async one(request: Request, response: Response, next: NextFunction) {
-        const id = parseInt(request.params.id)
-
-
-        const user = await this.userRepository.findOne({
-            where: { id }
-        })
-
-        if (!user) {
-            return "unregistered user"
-        }
-        return user
-    }
-
-    async save(request: Request, response: Response, next: NextFunction) {
-        const { firstName, lastName, age } = request.body;
-
-        const user = Object.assign(new User(), {
-            firstName,
-            lastName,
-            age
-        })
-
-        return this.userRepository.save(user)
-    }
-
-    async remove(request: Request, response: Response, next: NextFunction) {
-        const id = parseInt(request.params.id)
-
-        let userToRemove = await this.userRepository.findOneBy({ id })
-
-        if (!userToRemove) {
-            return "this user not exist"
-        }
-
-        await this.userRepository.remove(userToRemove)
-
-        return "user has been removed"
-    }
-
-}
+    return res.json(savedDicas);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+};
+export const getDicas = async (req: Request, res: Response) => {
+  try {
+    const dicas = await repositoryDicas.find();
+    return res.json(dicas);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+};

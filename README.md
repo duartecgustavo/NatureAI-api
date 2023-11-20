@@ -10,8 +10,6 @@ https://nature-ai-api.vercel.app/
 - Rodar o comando "npm install" ou "yarn".
 - Executar o comando "npm run dev" ou "yarn dev".
 
----
-
 ## TECNOLOGIAS:
 - NodeJS
 - Express
@@ -19,8 +17,6 @@ https://nature-ai-api.vercel.app/
 - Typeorm
 - Nodemon
 - Typescript
-
----
 
 ## Banco de Dados:
 - Beekeeper | Postgres

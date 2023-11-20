@@ -1,4 +1,4 @@
-# Atividade 1 - Full Staking – NatureAI Backend
+# Atividade 1 - Full Staking – FASE 7 - NatureAI Backend
 
 ## LINK DEPLOY:
 https://nature-ai-api.vercel.app/
